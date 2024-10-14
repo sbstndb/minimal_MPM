@@ -14,7 +14,8 @@ make -j
 # Usage
 
 You can launch the executable named `mpm` with the following command : 
-```./mpm <optional_configuration_file>
+```
+./mpm <optional_configuration_file>
 ```
 
 # Prerequisities
