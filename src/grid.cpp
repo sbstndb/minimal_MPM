@@ -20,9 +20,22 @@ Grid::~Grid(){
         cudaFree((void*)d_mass);
 };
 
-void Grid::addGrid(float dx, float dy, float dz, float h){
+void Grid::addGrid(int nx_, int ny_, int nz_, float h_){
+	nx = nx_ ; 
+	ny = ny_ ; 
+	nz = nz_ ; 
+	h = h_ ; 
+	// compute x, y, z positions ; 
+	n = nx * ny * nz ; 
+	lx = nx * h ; 
+	ly = ny * h ; 
+	lz = nz * h ; 
+	
+	allocateGrid(n) ; 
+	initializeGrid() ; 
 
 };
+
 
 
 void Grid::allocateGrid(int nNodes){

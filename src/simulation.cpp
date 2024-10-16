@@ -38,4 +38,7 @@ void Simulation::addBody(int nParticles_){
 	body.addBody(nParticles_) ; 
 }
 
+void Simulation::addGrid(float nx, float ny, float nz, float h){
+	grid.addGrid(nx, ny, nz, h);	
+}
 

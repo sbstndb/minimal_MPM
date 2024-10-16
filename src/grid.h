@@ -11,13 +11,17 @@ public:
 	Grid() ; 
 	~Grid() ; 
 
-	void addGrid(float, float, float, float) ; 
+	void addGrid(int, int, int, float) ; 
 	void allocateGrid(int ) ; 
+ 	void initializeGrid();
+	//void initializeGridKernel(float*, float*, float*, int, int, int, float);
 
-	void 
 
-	int nx, nt, nz;
+	int nx, ny, nz;
+	int n; 
 	float h; // hx = hy = hz for now
+	float lx, ly, lz ; 
+
 
 	// cuda arrays 
 	// In reality we can use limited amount of arrays because you dont need them at th same time

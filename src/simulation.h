@@ -3,6 +3,8 @@
 
 #include "solver.h"
 #include "body.h"
+#include "grid.h"
+
 
 class Simulation {
 public:
@@ -14,6 +16,7 @@ public:
 	void loop() ; 
         void finalize(); // nettoie les allocs
 	void addBody(int);
+	void addGrid(float, float, float, float) ; 
 
 private:
 
@@ -26,7 +29,7 @@ private:
 
 	Solver solver ; // description du solver (explicit, implicit, interpolations, explicit scheme, etc)
 	
-//	Grid grid ; // data de la grille, CPU + GPU
+	Grid grid ; // data de la grille, CPU + GPU
 
 //	Context context ;  // descripton du contexte (gravite, conditions limites, etc)
 //			   // A noter que les CL peuvent changer d'une itération à l'autre
