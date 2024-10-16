@@ -14,6 +14,8 @@ public:
 	void addGrid(float, float, float, float) ; 
 	void allocateGrid(int ) ; 
 
+	void 
+
 	int nx, nt, nz;
 	float h; // hx = hy = hz for now
 

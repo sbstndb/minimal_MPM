@@ -38,9 +38,34 @@ void Particles::allocateParticles(int nP_){
         cudaMalloc((void**)&d_eps_yz, nP_ * sizeof(float)) ;
 
         cudaMalloc((void**)&d_weights, nP_ * 8 * sizeof(float)) ; // hardcoded for LINEAR case ONLY !!!! may induce bugs. 
+        cudaMemset(d_weights, 0.0, nP_ * 8 * sizeof(float));
+								 
 
 //        cudaMalloc((void**)&d_phase, nP_ * sizeof(float)) ;
 
+	// zero arrays
+	cudaMemset(d_vx, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_vy, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_vz, 0.0, nP_ * sizeof(float));
+
+        cudaMemset(d_mass, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_volume, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_density, 0.0, nP_ * sizeof(float));
+
+
+        cudaMemset(d_sig_xx, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_sig_yy, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_sig_zz, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_sig_xy, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_sig_xz, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_sig_yz, 0.0, nP_ * sizeof(float));
+
+        cudaMemset(d_eps_xx, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_eps_yy, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_eps_zz, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_eps_xy, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_eps_xz, 0.0, nP_ * sizeof(float));
+        cudaMemset(d_eps_yz, 0.0, nP_ * sizeof(float));
 
 } ; 
 
