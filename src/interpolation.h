@@ -11,6 +11,9 @@ public:
 		CubicSpline
 	};
 	Type type = Interpolation::Type::Linear ; 
+
+	void setType(Type) ; 
+
 };
 
 #endif

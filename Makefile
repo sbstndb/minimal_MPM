@@ -34,7 +34,7 @@ $(OBJDIR)/%.cu.o: $(SRCDIR)/%.cu
 
 # Compilation des fichiers .cpp en objets
 $(OBJDIR)/%.cpp.o: $(SRCDIR)/%.cpp
-	$(GPP) $(GPPFLAGS) -c $< -o $@
+	$(GPP) $(GPPFLAGS) -I$(CUDA_INC_DIR) -c $< -o $@
 
 # Édition de liens
 $(TARGET): $(CUOBJS) $(CPPOBJS)

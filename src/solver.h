@@ -15,9 +15,9 @@ public:
 
 //	TemporalScheme temporalScheme(TemporalScheme::Type::Explicit) ; 
 	TemporalScheme temporalScheme ; 
-	Interpolation interpolation() ; 
-	ExplicitScheme explicitScheme() ; 
-	Contact contact() ; 
+	Interpolation interpolation ; 
+	ExplicitScheme explicitScheme ; 
+	Contact contact ; 
 
 /**
 	void computeInterpolation3D(){ // arguments à reflechir

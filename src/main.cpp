@@ -9,6 +9,9 @@ int main(int argc, char ** argv){
 
 	Simulation simulation(simulationSteps) ; 
 	simulation.initialize() ; 
+
+	simulation.addBody(10000) ; 
+
 	simulation.loop() ; 
 	simulation.finalize() ; 
 

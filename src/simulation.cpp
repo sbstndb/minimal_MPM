@@ -13,6 +13,7 @@ void Simulation::initialize(){
 	std::cout << "simuation initialize" << std::endl ;
 	currentSteps = 0 ; 
 	currentTime = 0.0 ; 
+
 }
 
 void Simulation::run(){
@@ -23,6 +24,7 @@ void Simulation::run(){
 }
 
 void Simulation::loop(){
+	std::cout << " In a loop !! " << std::endl ; 
 	// work
 }
 
@@ -31,3 +33,9 @@ void Simulation::finalize(){
 	
 	// cuda stuff
 }
+
+void Simulation::addBody(int nParticles_){
+	body.addBody(nParticles_) ; 
+}
+
+

@@ -4,6 +4,7 @@
 
 Solver::Solver(){
        std::cout << "Solver Constructor" << std::endl ;
+	interpolation.setType(Interpolation::Type::Linear)  ; 
 };
 
 

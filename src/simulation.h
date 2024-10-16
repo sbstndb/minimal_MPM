@@ -1,6 +1,9 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include "solver.h"
+#include "body.h"
+
 class Simulation {
 public:
         Simulation(int) ;
@@ -10,6 +13,7 @@ public:
         void run(); // lance la boucle de calcul
 	void loop() ; 
         void finalize(); // nettoie les allocs
+	void addBody(int);
 
 private:
 
@@ -21,11 +25,15 @@ private:
 	
 
 	Solver solver ; // description du solver (explicit, implicit, interpolations, explicit scheme, etc)
+	
+//	Grid grid ; // data de la grille, CPU + GPU
+
 //	Context context ;  // descripton du contexte (gravite, conditions limites, etc)
 //			   // A noter que les CL peuvent changer d'une itération à l'autre
-//	Bodies bodies ; // description des proprietes des differents corps solides ou liquides
+	Body body ; // description des proprietes des differents corps solides ou liquides
 //			// (loi de comportement, volume occupé, valeurs physiques, ...)
 //			// reste à savoir comment prendre en compte le multi solides
+//			// Note : dans un premier temps, qu'un seul body sera géré
 //	Bake bake ; // bake is the simulation data saved
 //	Error error ; // gestion d'erreur dans le future
 //	Hardware hardware ; // hardware information 
