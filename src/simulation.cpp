@@ -25,6 +25,10 @@ void Simulation::run(){
 
 void Simulation::loop(){
 	std::cout << " In a loop !! " << std::endl ; 
+	// interpolation
+
+	computeInterpolation() ; 
+
 	// work
 }
 
@@ -41,4 +45,14 @@ void Simulation::addBody(int nParticles_){
 void Simulation::addGrid(float nx, float ny, float nz, float h){
 	grid.addGrid(nx, ny, nz, h);	
 }
+
+void Simulation::computeInterpolation(){
+	solver.interpolation.weightInterp(
+			body.particles.d_x, body.particles.d_y, body.particles.d_z, 
+			grid.d_x, grid.d_y, grid.d_z,
+			body.particles.d_weights, 
+			body.particles.nParticles,
+			grid.nx, grid.ny, grid.nz, grid.h);
+}	
+
 

@@ -17,6 +17,8 @@ public:
         void finalize(); // nettoie les allocs
 	void addBody(int);
 	void addGrid(float, float, float, float) ; 
+	void computeInterpolation() ; 
+
 
 private:
 

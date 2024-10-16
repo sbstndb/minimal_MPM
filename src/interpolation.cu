@@ -1,5 +1,5 @@
 #include "interpolation.h"
-
+#include <iostream>
 /**
         // define shape functions
         float Interp(float, float, float, float, float, float) ; // switch case in Type
@@ -89,6 +89,7 @@ void Interpolation::weightInterp(
                         nx, ny, nz, h) ;
 
         cudaDeviceSynchronize() ;
+	std::cout << "Weight Interpolation" << std::endl ; 
 };
 
 

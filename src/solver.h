@@ -18,7 +18,6 @@ public:
 	Interpolation interpolation ; 
 	ExplicitScheme explicitScheme ; 
 	Contact contact ; 
-	PG pg; 
 
 /**
 	void computeInterpolation3D(){ // arguments à reflechir
