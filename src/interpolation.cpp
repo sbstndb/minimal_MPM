@@ -1,6 +1,9 @@
 #include <iostream>
 #include "interpolation.h"
 
+Interpolation::Interpolation(){} ; 
+Interpolation::~Interpolation(){};
+
 
 void Interpolation::setType(Interpolation::Type type_){
 	Interpolation::type = type_ ; 
