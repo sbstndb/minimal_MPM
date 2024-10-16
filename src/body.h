@@ -10,7 +10,7 @@ public:
 	Particles() ; 
 //	Particles(int); 
 	~Particles(); 
-	void allocateParticles(int) ; 
+	void allocateParticles(int) ; // à refaire puisqu'on veut un solide custom
 
 	int nParticles ; 
 

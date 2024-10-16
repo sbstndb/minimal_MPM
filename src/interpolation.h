@@ -3,6 +3,10 @@
 
 class Interpolation {
 public:
+
+	Interpolation() ; 
+	~Interpolation() ; 
+
 	enum class Type {
 		Linear,
 		Gimp,
@@ -10,9 +14,24 @@ public:
 		QuadSpline,
 		CubicSpline
 	};
-	Type type = Interpolation::Type::Linear ; 
 
+	Type type = Interpolation::Type::Linear ; 
 	void setType(Type) ; 
+
+
+	// define shape functions 
+	float Interp(float, float, float, float, float, float) ; // switch case in Type
+								 //
+	void weightInterp(float *d_xp, float *d_yp, float *_zp,
+                float *d_xi, float *d_yi, float *d_zi,
+                float *d_weights,
+                int nParticles,
+                int nx, int ny, int nz, float h);								
+	//
+	// define particle grid transfert funtions
+	void P2G(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
+	void G2P(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
+
 
 };
 
