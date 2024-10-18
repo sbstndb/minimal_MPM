@@ -19,6 +19,9 @@ public:
 	void addGrid(float, float, float, float) ; 
 	void computeInterpolation() ; 
 
+	void G2PVelocity();
+	void P2GVelocity();
+
 
 private:
 

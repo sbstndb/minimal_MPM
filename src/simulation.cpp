@@ -1,4 +1,5 @@
 #include "simulation.h"
+#include "interpolation.h" 
 #include <iostream>
 
 
@@ -28,6 +29,8 @@ void Simulation::loop(){
 	// interpolation
 
 	computeInterpolation() ; 
+	P2GVelocity() ; 
+	G2PVelocity() ; 
 
 	// work
 }
@@ -56,4 +59,41 @@ void Simulation::computeInterpolation(){
 			grid.nx, grid.ny, grid.nz, grid.h);
 }	
 
+void Simulation::P2GVelocity(){
+        std::cout << " In P2G driver " << std::endl ;
+	
+        solver.interpolation.P2G(
+                body.particles.d_vx, grid.d_vx,
+                body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
+                body.particles.d_weights, body.particles.nParticles, grid.nx, grid.ny);
+        solver.interpolation.P2G(
+                body.particles.d_vy, grid.d_vy,
+                body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
+                body.particles.d_weights, body.particles.nParticles, grid.nx, grid.ny);
+        solver.interpolation.P2G(
+                body.particles.d_vz, grid.d_vz,
+                body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
+                body.particles.d_weights, body.particles.nParticles, grid.nx, grid.ny);
+
+
+}
+
+
+void Simulation::G2PVelocity(){
+	std::cout << " In G2P driver " << std::endl ; 
+	solver.interpolation.G2P(
+		body.particles.d_vx, grid.d_vx,
+                body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
+                body.particles.d_weights, body.particles.nParticles, grid.nx, grid.ny);
+        solver.interpolation.G2P(
+                body.particles.d_vy, grid.d_vy,
+                body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
+                body.particles.d_weights, body.particles.nParticles, grid.nx, grid.ny);
+        solver.interpolation.G2P(
+                body.particles.d_vz, grid.d_vz,
+                body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
+                body.particles.d_weights, body.particles.nParticles, grid.nx, grid.ny);
+
+
+}
 
