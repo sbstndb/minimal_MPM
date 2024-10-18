@@ -93,4 +93,34 @@ void Interpolation::weightInterp(
 };
 
 
+__global__ void P2GKernel(float *fp, float *fi, float *weights){
+
+}
+
+__global__ void G2PKernel(float *fp, float *fi, float *weights){
+
+}
+
+
+
+
+void P2G(float *fp, float * fi , float * weights, int nParticles){
+	// be careful : 
+	// TODO : add type of interpolation , spline etc
+        int threadsPerBlocks = 256 ;
+        int blocksPerGrid = (nParticles + threadsPerBlocks -1)/threadsPerBlocks ;
+	P2GKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights);
+
+}
+
+void G2P(float *fp, float *fi, float* weights, int nParticles){
+        int threadsPerBlocks = 256 ;
+        // TODO : add type of interpolation , spline etc	
+        int blocksPerGrid = (nParticles + threadsPerBlocks -1)/threadsPerBlocks ;
+	G2PKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights) ; 
+
+}
+
+
+
 

@@ -29,9 +29,13 @@ public:
                 int nx, int ny, int nz, float h);								
 	//
 	// define particle grid transfert funtions
-	void P2G(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
-	void G2P(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
+	// fpx : field particle x 
+//	void P2G(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
+//	void G2P(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
 
+	void P2G(float * fp, float * fi, float * weights, int nParticles) ; 
+        void G2P(float * fp, float * fi, float * weights, int nParticles) ;
+	
 
 };
 
