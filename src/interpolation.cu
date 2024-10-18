@@ -103,7 +103,10 @@ void Interpolation::weightInterp(
 };
 
 
-__global__ void P2GKernel(float *fp, float *fi, float *weights, int nParticles){
+__global__ void P2GKernel(
+                float *fp, float *fi,
+                int* d_node_x, int *d_node_y, int *d_node_z,
+                float *weights, int nParticles, int nx , int ny){
         // Be careful : only with linear shape function because of d weights
         int idx = blockIdx.x * blockDim.x + threadIdx.x ;
         if (idx >= nParticles) return ;
@@ -131,22 +134,24 @@ __global__ void G2PKernel(
 			}
 		}
 	}
-
 }
 
 
 
 
-void P2G(float *fp, float * fi , float * weights, int nParticles){
+void Interpolation::P2G(float *fp, float * fi , 
+                int *d_node_x, int *d_node_y, int *d_node_z,
+                float* weights, int nParticles, int nx, int ny){
 	// be careful : 
 	// TODO : add type of interpolation , spline etc
         int threadsPerBlocks = 256 ;
         int blocksPerGrid = (nParticles + threadsPerBlocks -1)/threadsPerBlocks ;
-	P2GKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights, nParticles);
+        P2GKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, d_node_x, d_node_y, d_node_z, weights, nParticles, nx, ny) ;
+	
 
 }
 
-void G2P(float *fp, float *fi, 
+void Interpolation::G2P(float *fp, float *fi, 
 		int *d_node_x, int *d_node_y, int *d_node_z,
 		float* weights, int nParticles, int nx, int ny){
         int threadsPerBlocks = 256 ;
