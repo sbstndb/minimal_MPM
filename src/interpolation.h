@@ -35,7 +35,7 @@ public:
 //	void G2P(float* fpx, float* fpy, float* fpz, float* fnx, float* fny, float* fnz) ; 
 
 	void P2G(float * fp, float * fi, float * weights, int nParticles) ; 
-        void G2P(float * fp, float * fi, float * weights, int nParticles) ;
+        void G2P(float * fp, float * fi, int *d_node_x, int *d_node_y, int *d_node_z, float * weights, int nParticles, int nx, int ny) ;
 	
 
 };

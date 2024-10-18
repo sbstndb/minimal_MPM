@@ -47,6 +47,13 @@ __global__ void weightInterpKernel(
 	int j0 = floorf(yp/h);
 	int k0 = floorf(zp/h);
 
+	// this store the node id for the next p2g and g2p phases. 
+	d_node_x[idx] = i0 ; 
+        d_node_y[idx] = j0 ;
+        d_node_z[idx] = k0 ;
+
+
+
 	// future : verifier que les indices sont dans les bonnes limites, 
 	// avec min(max(i0, 0), nx-2) par ex
 	//
@@ -103,10 +110,27 @@ __global__ void P2GKernel(float *fp, float *fi, float *weights, int nParticles){
 
 }
 
-__global__ void G2PKernel(float *fp, float *fi, float *weights, int nParticles){
+__global__ void G2PKernel(
+		float *fp, float *fi, 
+		int* d_node_x, int *d_node_y, int *d_node_z,
+		float *weights, int nParticles, int nx , int ny){
         // Be careful : only with linear shape function because of d weights
         int idx = blockIdx.x * blockDim.x + threadIdx.x ;
         if (idx >= nParticles) return ;
+	// for each particles
+        int i0 = d_node_x[idx]  ;
+        int j0 = d_node_y[idx]  ;
+        int k0 = d_node_z[idx]  ;
+
+	for (int i = i0 ; i < i0+2 ; i++){
+		for (int j = j0 ; j < j0+2 ; j++){
+			for (int k = k0 ; j < k0+2 ; j++){
+				// get the data for each nodes
+                                int index_node = k * (nx*ny) + j*nx + i;
+				fp[idx] += fi[index_node] * weights[index_node]; 	
+			}
+		}
+	}
 
 }
 
@@ -122,11 +146,13 @@ void P2G(float *fp, float * fi , float * weights, int nParticles){
 
 }
 
-void G2P(float *fp, float *fi, float* weights, int nParticles){
+void G2P(float *fp, float *fi, 
+		int *d_node_x, int *d_node_y, int *d_node_z,
+		float* weights, int nParticles, int nx, int ny){
         int threadsPerBlocks = 256 ;
         // TODO : add type of interpolation , spline etc	
         int blocksPerGrid = (nParticles + threadsPerBlocks -1)/threadsPerBlocks ;
-	G2PKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights, nParticles) ; 
+	G2PKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, d_node_x, d_node_y, d_node_z, weights, nParticles, nx, ny) ; 
 
 }
 
