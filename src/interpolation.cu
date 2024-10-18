@@ -107,9 +107,25 @@ __global__ void P2GKernel(
                 float *fp, float *fi,
                 int* d_node_x, int *d_node_y, int *d_node_z,
                 float *weights, int nParticles, int nx , int ny){
+
         // Be careful : only with linear shape function because of d weights
         int idx = blockIdx.x * blockDim.x + threadIdx.x ;
         if (idx >= nParticles) return ;
+        // for each particles
+        int i0 = d_node_x[idx]  ;
+        int j0 = d_node_y[idx]  ;
+        int k0 = d_node_z[idx]  ;
+
+        for (int i = i0 ; i < i0+2 ; i++){
+                for (int j = j0 ; j < j0+2 ; j++){
+                        for (int k = k0 ; j < k0+2 ; j++){
+                                // set the data for each nodes
+                                int index_node = k * (nx*ny) + j*nx + i;
+                                atomicAdd(&(fi[idx]), fp[index_node] * weights[index_node]);
+                        }
+                }
+        }
+
 
 }
 
