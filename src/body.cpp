@@ -22,6 +22,11 @@ void Particles::allocateParticles(int nP_){
         cudaMalloc((void**)&d_volume, nP_ * sizeof(float)) ;
         cudaMalloc((void**)&d_density, nP_ * sizeof(float)) ;
 
+        cudaMalloc((void**)&d_node_x, nP_ * sizeof(int)) ;
+        cudaMalloc((void**)&d_node_y, nP_ * sizeof(int)) ;
+        cudaMalloc((void**)&d_node_z, nP_ * sizeof(int)) ;
+
+
         cudaMalloc((void**)&d_sig_xx, nP_ * sizeof(float)) ;
         cudaMalloc((void**)&d_sig_yy, nP_ * sizeof(float)) ;
         cudaMalloc((void**)&d_sig_zz, nP_ * sizeof(float)) ;
@@ -84,6 +89,12 @@ Particles::~Particles(){
         cudaFree((void*)d_mass);
         cudaFree((void*)d_volume);
         cudaFree((void*)d_density);
+
+
+        cudaFree((void*)d_node_x);
+        cudaFree((void*)d_node_y);
+        cudaFree((void*)d_node_z);
+
 
         cudaFree((void*)d_sig_xx);
         cudaFree((void*)d_sig_yy);

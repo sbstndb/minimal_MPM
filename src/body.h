@@ -17,6 +17,9 @@ public:
 	float *d_x, *d_y, *d_z ; 
 	float *d_vx, *d_vy, *d_vz ; 
 	float *d_mass, *d_volume, *d_density ;
+
+	int *d_node_x, * d_node_y, *d_node_z ;
+
 	float *d_sig_xx, *d_sig_yy, *d_sig_zz, *d_sig_xy, *d_sig_xz, *d_sig_yz ; // symmetric stress tensor, 6 values per particle
         float *d_eps_xx, *d_eps_yy, *d_eps_zz, *d_eps_xy, *d_eps_xz, *d_eps_yz ; // symmetric strain tensor, 6 values per particle
 	float *d_weights ; // interpolation values. Be careful : size depends on Interpolation::Type...

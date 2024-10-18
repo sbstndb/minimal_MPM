@@ -50,6 +50,7 @@ void Simulation::computeInterpolation(){
 	solver.interpolation.weightInterp(
 			body.particles.d_x, body.particles.d_y, body.particles.d_z, 
 			grid.d_x, grid.d_y, grid.d_z,
+			body.particles.d_node_x, body.particles.d_node_y, body.particles.d_node_z,
 			body.particles.d_weights, 
 			body.particles.nParticles,
 			grid.nx, grid.ny, grid.nz, grid.h);

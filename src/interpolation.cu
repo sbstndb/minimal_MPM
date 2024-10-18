@@ -28,6 +28,7 @@ __device__ float linearInterp(float xp, float yp, float zp, float xn, float yn, 
 __global__ void weightInterpKernel(
 		float *d_xp, float *d_yp, float *d_zp,
 		float *d_xn, float *d_yn, float *d_zn,
+		int *d_node_x, int * d_node_y, int * d_node_z,
 		float *d_weights, 
 		int nParticles, 
 		int nx, int ny, int nz, float h){
@@ -74,6 +75,7 @@ __global__ void weightInterpKernel(
 void Interpolation::weightInterp(
                 float *d_xp, float *d_yp, float *d_zp,
                 float *d_xn, float *d_yn, float *d_zn,
+		int *d_node_x, int* d_node_y, int *d_node_z ,
                 float *d_weights,
                 int nParticles,
                 int nx, int ny, int nz, float h){
@@ -84,6 +86,7 @@ void Interpolation::weightInterp(
         weightInterpKernel<<<threadsPerBlocks, blocksPerGrid>>>(
                         d_xp, d_yp, d_zp,
                         d_xn, d_yn, d_zn,
+			d_node_x, d_node_y, d_node_z,
                         d_weights,
                         nParticles,
                         nx, ny, nz, h) ;
@@ -93,11 +96,17 @@ void Interpolation::weightInterp(
 };
 
 
-__global__ void P2GKernel(float *fp, float *fi, float *weights){
+__global__ void P2GKernel(float *fp, float *fi, float *weights, int nParticles){
+        // Be careful : only with linear shape function because of d weights
+        int idx = blockIdx.x * blockDim.x + threadIdx.x ;
+        if (idx >= nParticles) return ;
 
 }
 
-__global__ void G2PKernel(float *fp, float *fi, float *weights){
+__global__ void G2PKernel(float *fp, float *fi, float *weights, int nParticles){
+        // Be careful : only with linear shape function because of d weights
+        int idx = blockIdx.x * blockDim.x + threadIdx.x ;
+        if (idx >= nParticles) return ;
 
 }
 
@@ -109,7 +118,7 @@ void P2G(float *fp, float * fi , float * weights, int nParticles){
 	// TODO : add type of interpolation , spline etc
         int threadsPerBlocks = 256 ;
         int blocksPerGrid = (nParticles + threadsPerBlocks -1)/threadsPerBlocks ;
-	P2GKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights);
+	P2GKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights, nParticles);
 
 }
 
@@ -117,7 +126,7 @@ void G2P(float *fp, float *fi, float* weights, int nParticles){
         int threadsPerBlocks = 256 ;
         // TODO : add type of interpolation , spline etc	
         int blocksPerGrid = (nParticles + threadsPerBlocks -1)/threadsPerBlocks ;
-	G2PKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights) ; 
+	G2PKernel<<<threadsPerBlocks, blocksPerGrid>>>(fp, fi, weights, nParticles) ; 
 
 }
 
